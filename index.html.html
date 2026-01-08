@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>First Year Guidance Exam 2025/2026 — Interactive (v5 · merged · v2)</title>
+<style>
+  :root{ --c1:#ff7eb6; --c2:#ffd166; --c3:#3cf0c0; --c4:#60a5fa; --c5:#a78bfa; --ink:#0f172a; --correct:#22c55e; --wrong:#ef4444; }
+  body{margin:0; font-family:'Segoe UI',Tahoma,sans-serif; color:var(--ink);
+    background:radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,.92) 0, rgba(255,255,255,.86) 20%, rgba(255,255,255,.8) 40%, rgba(255,255,255,.7) 60%, rgba(255,255,255,.6) 80%), linear-gradient(135deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));
+    background-size:cover, 300% 300%; animation:hue 25s ease-in-out infinite; }
+  @keyframes hue{0%{background-position:center,0% 50%}50%{background-position:center,100% 50%}100%{background-position:center,0% 50%}}
+  .wrap{max-width:1020px; margin:36px auto; padding:24px; background:rgba(255,255,255,.97); border-radius:22px; box-shadow:0 16px 40px rgba(16,24,40,.22)}
+  h1{margin:0; font-size:28px;} .header{display:flex; align-items:center; justify-content:space-between; gap:12px;}
+  .badge{display:inline-block; padding:5px 12px; border-radius:999px; background:linear-gradient(90deg,var(--c3),var(--c2)); color:#064e3b; font-weight:800;}
+  .floating-score{position:sticky; top:10px; float:right; margin-top:-12px; background:#001219; color:#e8f7f0; padding:8px 12px; border-radius:12px; font-weight:800; box-shadow:0 8px 16px rgba(0,0,0,.2)}
+  .section{border-left:7px solid var(--c5); padding-left:12px; margin-top:28px;}
+  .q-card{background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:16px; margin:14px 0; position:relative;}
+  .q-title{font-weight:800;} .controls{display:flex; gap:10px; flex-wrap:wrap; margin:10px 0;} .feedback{margin-top:8px; font-weight:800;}
+  .feedback.correct{color:var(--correct);} .feedback.wrong{color:var(--wrong);} 
+  button{border:none; border-radius:12px; padding:10px 14px; font-weight:800; cursor:pointer;}
+  .btn-primary{background:linear-gradient(90deg,var(--c5),var(--c4)); color:#fff;} .btn-mint{background:linear-gradient(90deg,var(--c3),#25c58a); color:#064e3b;} .btn-danger{background:linear-gradient(90deg,#ef4444,#b91c1c); color:#fff;}
+  .options label{display:block; padding:.48rem .64rem; border-radius:12px; cursor:pointer; transition:transform .06s ease, background .2s ease;}
+  .options label:hover{transform:translateY(-1px); background:#f8fafc}
+  .passage{background:#f8fafc; padding:12px; border-radius:12px; border:1px solid #e5e7eb;}
+  .mono{font-family: ui-monospace, Menlo, Monaco, Consolas, "Courier New", monospace;}
+  /* animations */
+  .glow-correct{box-shadow:0 0 0 3px var(--correct) inset, 0 0 18px rgba(34,197,94,.55);} .pulse{animation:pulse 650ms ease;} @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+  .shake-wrong{animation: shake .38s ease;} @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+  .confetti-box{position:absolute; pointer-events:none;} .piece{position:absolute; width:8px; height:14px; opacity:.9; border-radius:2px; animation:fly 1.1s ease-out forwards;} @keyframes fly{0%{transform:translate(0,0) rotate(0deg)}100%{transform:translate(var(--tx), var(--ty)) rotate(var(--rot))}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1>First Year Guidance Exam 2025/2026 <span class="badge">Interactive · Self‑grading</span></h1>
+      <div class="floating-score" id="progressBox">Progress: 0 / 25</div>
+    </div>
+
+    <div class="section">
+      <h2>A) Vocabulary and Structure <span style="font-size:.9rem; font-weight:700; background:#eef2ff; padding:4px 10px; border-radius:999px;">16 marks</span></h2>
+
+      <!-- RESTORED: A1 (five options, pick TWO antonyms of recycle) -->
+      <div class="q-card" id="qA1">
+        <div class="q-title">1) Choose <strong>TWO (2)</strong> correct answers out of the FIVE (5) options given:</div>
+        <div class="hint">The <em>antonyms</em> of <strong>recycle</strong> are …</div>
+        <div class="options">
+          <label><input type="checkbox" name="qA1_1" value="reuse"> a) reuse</label>
+          <label><input type="checkbox" name="qA1_1" value="lose"> b) lose</label>
+          <label><input type="checkbox" name="qA1_1" value="save"> c) save</label>
+          <label><input type="checkbox" name="qA1_1" value="waste"> d) waste</label>
+          <label><input type="checkbox" name="qA1_1" value="clean"> e) clean</label>
+        </div>
+        <div class="controls"><button class="btn-primary" onclick="checkMulti('qA1', ['waste','lose'])">Check</button> <button class="btn-mint" onclick="showCorrectMulti('qA1', ['waste','lose'])">Show correct answer</button></div>
+        <div class="feedback" id="fb_qA1"></div>
+      </div>
+
+      <!-- RESTORED: A2 (five options, pick TWO synonyms of careful) -->
+      <div class="q-card" id="qA2">
+        <div class="hint">2) The <em>synonyms</em> for <strong>careful</strong> are …</div>
+        <div class="options">
+          <label><input type="checkbox" name="qA2_1" value="reckless"> a) reckless</label>
+          <label><input type="checkbox" name="qA2_1" value="cautious"> b) cautious</label>
+          <label><input type="checkbox" name="qA2_1" value="happy"> c) happy</label>
+          <label><input type="checkbox" name="qA2_1" value="careless"> d) careless</label>
+          <label><input type="checkbox" name="qA2_1" value="meticulous"> e) meticulous</label>
+        </div>
+        <div class="controls"><button class="btn-primary" onclick="checkMulti('qA2', ['cautious','meticulous'])">Check</button> <button class="btn-mint" onclick="showCorrectMulti('qA2', ['cautious','meticulous'])">Show correct answer</button></div>
+        <div class="feedback" id="fb_qA2"></div>
+      </div>
+
+      <!-- A3 radios (12 items) with fix: Reading many books increases ... -->
+      <div class="q-card" id="qA3">
+        <div class="q-title">3) Choose the correct answer from a, b, c or d:</div>
+        <ol>
+          <li>
+            Egypt is our ……, the place we always love and protect.
+            <div class="options">
+              <label><input type="radio" name="qA3_1" value="a"> a) culture</label>
+              <label><input type="radio" name="qA3_1" value="b"> b) home land</label>
+              <label><input type="radio" name="qA3_1" value="c"> c) monument</label>
+              <label><input type="radio" name="qA3_1" value="d"> d) trade</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',1,'b')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',1,'b')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_1"></div>
+          </li>
+          <li>
+            It's a scientific … that water boils at 100 degrees Celsius.
+            <div class="options">
+              <label><input type="radio" name="qA3_2" value="a"> a) guess</label>
+              <label><input type="radio" name="qA3_2" value="b"> b) secret</label>
+              <label><input type="radio" name="qA3_2" value="c"> c) fact</label>
+              <label><input type="radio" name="qA3_2" value="d"> d) game</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',2,'c')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',2,'c')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_2"></div>
+          </li>
+          <li>
+            The Signature was … and proved that the letter was read.
+            <div class="options">
+              <label><input type="radio" name="qA3_3" value="a"> a) fake</label>
+              <label><input type="radio" name="qA3_3" value="b"> b) false</label>
+              <label><input type="radio" name="qA3_3" value="c"> c) copied</label>
+              <label><input type="radio" name="qA3_3" value="d"> d) genuine</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',3,'d')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',3,'d')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_3"></div>
+          </li>
+          <li>
+            Reading many books increases our … of the world.
+            <div class="options">
+              <label><input type="radio" name="qA3_4" value="a"> a) ignorance</label>
+              <label><input type="radio" name="qA3_4" value="b"> b) rumor</label>
+              <label><input type="radio" name="qA3_4" value="c"> c) awareness</label>
+              <label><input type="radio" name="qA3_4" value="d"> d) tank</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',4,'c')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',4,'c')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_4"></div>
+          </li>
+          <li>
+            She wants to … her life to help poor children.
+            <div class="options">
+              <label><input type="radio" name="qA3_5" value="a"> a) dedicate</label>
+              <label><input type="radio" name="qA3_5" value="b"> b) neglect</label>
+              <label><input type="radio" name="qA3_5" value="c"> c) collaborate</label>
+              <label><input type="radio" name="qA3_5" value="d"> d) waste</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',5,'a')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',5,'a')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_5"></div>
+          </li>
+          <li>
+            Teachers often … students to do their best.
+            <div class="options">
+              <label><input type="radio" name="qA3_6" value="a"> a) punish</label>
+              <label><input type="radio" name="qA3_6" value="b"> b) avoid</label>
+              <label><input type="radio" name="qA3_6" value="c"> c) criticize</label>
+              <label><input type="radio" name="qA3_6" value="d"> d) support</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',6,'d')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',6,'d')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_6"></div>
+          </li>
+          <li>
+            While I was watching TV, my father … the room.
+            <div class="options">
+              <label><input type="radio" name="qA3_7" value="a"> a) was entering</label>
+              <label><input type="radio" name="qA3_7" value="b"> b) enters</label>
+              <label><input type="radio" name="qA3_7" value="c"> c) entered</label>
+              <label><input type="radio" name="qA3_7" value="d"> d) entering</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',7,'c')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',7,'c')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_7"></div>
+          </li>
+          <li>
+            IF I … her address, I'll send her an invitation.
+            <div class="options">
+              <label><input type="radio" name="qA3_8" value="a"> a) find</label>
+              <label><input type="radio" name="qA3_8" value="b"> b) finds</label>
+              <label><input type="radio" name="qA3_8" value="c"> c) found</label>
+              <label><input type="radio" name="qA3_8" value="d"> d) had found</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',8,'a')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',8,'a')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_8"></div>
+          </li>
+          <li>
+            The teacher gave us … homework to punish us.
+            <div class="options">
+              <label><input type="radio" name="qA3_9" value="a"> a) a lot</label>
+              <label><input type="radio" name="qA3_9" value="b"> b) many</label>
+              <label><input type="radio" name="qA3_9" value="c"> c) a lot of</label>
+              <label><input type="radio" name="qA3_9" value="d"> d) a little</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',9,'c')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',9,'c')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_9"></div>
+          </li>
+          <li>
+            I visited … United States of America last year.
+            <div class="options">
+              <label><input type="radio" name="qA3_10" value="a"> a) a</label>
+              <label><input type="radio" name="qA3_10" value="b"> b) the</label>
+              <label><input type="radio" name="qA3_10" value="c"> c) an</label>
+              <label><input type="radio" name="qA3_10" value="d"> d) no article</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',10,'b')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',10,'b')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_10"></div>
+          </li>
+          <li>
+            The first paragraph in an essay is called a/an …
+            <div class="options">
+              <label><input type="radio" name="qA3_11" value="a"> a) conclusion</label>
+              <label><input type="radio" name="qA3_11" value="b"> b) introduction</label>
+              <label><input type="radio" name="qA3_11" value="c"> c) body</label>
+              <label><input type="radio" name="qA3_11" value="d"> d) topic</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',11,'b')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',11,'b')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_11"></div>
+          </li>
+          <li>
+            In a/an … email, we start with "Dear Sir/Madam".
+            <div class="options">
+              <label><input type="radio" name="qA3_12" value="a"> a) informal</label>
+              <label><input type="radio" name="qA3_12" value="b"> b) narrative</label>
+              <label><input type="radio" name="qA3_12" value="c"> c) formal</label>
+              <label><input type="radio" name="qA3_12" value="d"> d) form</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qA3',12,'c')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qA3',12,'c')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qA3_12"></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Reading, Translation, Novel, Writing sections unchanged from merged version -->
+    <div class="section">
+      <h2>B) Reading <span style="font-size:.9rem; font-weight:700; background:#eef2ff; padding:4px 10px; border-radius:999px;">7 marks</span></h2>
+      <div class="q-card" id="readingBlock">
+        <div class="q-title">Read the following passage, then answer the questions:</div>
+        <div class="passage">
+          Reading is a very good habit that one needs to develop in life. Good books can inform you, enlighten you and lead you in the right direction. Reading is important because it is good for your overall well-being. You read all the time. Sometimes you read just for fun. Other times you read for schoolwork. No matter what you are reading, what you read has meaning. You can connect to what you read. Making connections is important. It's giving your brain a place to store what you read. Your brain is like a file box. The new information is kept in a safe place. You can think about it later. When you want to use the information, it's there in your brain. The more connections you make, the better. If you have a lot of connections, your brain can work faster; if you have many ways to think about something, the information will be easier to find.
+          <br/><br/>
+          There are different ways to connect as you read. One kind of connection is self‑to‑text. This is when you realise something you read in a story has happened to you in your own life. Usually, this kind of connection comes from the emotions you felt at that time. It may make you feel happy, afraid, or sad. Another kind of connection is text‑to‑text. This is when reading a story reminds you about a story you have read before. The last kind of connection is text‑to‑world. It reminds you of something you have seen happen to someone you know or have seen in the news.
+        </div>
+      </div>
+      <div class="q-card" id="qB">
+        <div class="q-title">Choose the correct answer from a, b, c or d:</div>
+        <ol>
+          <li>
+            No matter what you are reading, it is …
+            <div class="options">
+              <label><input type="radio" name="qB_1" value="a"> a) beneficial</label>
+              <label><input type="radio" name="qB_1" value="b"> b) useless</label>
+              <label><input type="radio" name="qB_1" value="c"> c) harmful</label>
+              <label><input type="radio" name="qB_1" value="d"> d) destructive</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qB',1,'a')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qB',1,'a')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qB_1"></div>
+          </li>
+          <li>
+            When you remember something that happened to you through reading, it's … connection.
+            <div class="options">
+              <label><input type="radio" name="qB_2" value="a"> a) a self-to-self</label>
+              <label><input type="radio" name="qB_2" value="b"> b) a self-to-text</label>
+              <label><input type="radio" name="qB_2" value="c"> c) a text-to-text</label>
+              <label><input type="radio" name="qB_2" value="d"> d) a text-to-world</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qB',2,'b')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qB',2,'b')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qB_2"></div>
+          </li>
+          <li>
+            The more connections you make, the … your brain works.
+            <div class="options">
+              <label><input type="radio" name="qB_3" value="a"> a) more difficult</label>
+              <label><input type="radio" name="qB_3" value="b"> b) slower</label>
+              <label><input type="radio" name="qB_3" value="c"> c) faster</label>
+              <label><input type="radio" name="qB_3" value="d"> d) harder</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qB',3,'c')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qB',3,'c')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qB_3"></div>
+          </li>
+          <li>
+            The antonym of the word "realize" is …
+            <div class="options">
+              <label><input type="radio" name="qB_4" value="a"> a) take in</label>
+              <label><input type="radio" name="qB_4" value="b"> b) become conscious</label>
+              <label><input type="radio" name="qB_4" value="c"> c) understand</label>
+              <label><input type="radio" name="qB_4" value="d"> d) misunderstand</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qB',4,'d')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qB',4,'d')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qB_4"></div>
+          </li>
+          <li>
+            When we make connections while reading, this is good for …
+            <div class="options">
+              <label><input type="radio" name="qB_5" value="a"> a) heart</label>
+              <label><input type="radio" name="qB_5" value="b"> b) brain</label>
+              <label><input type="radio" name="qB_5" value="c"> c) muscles</label>
+              <label><input type="radio" name="qB_5" value="d"> d) education</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qB',5,'b')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qB',5,'b')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qB_5"></div>
+          </li>
+          <li>
+            A text-to-world connection happens when …
+            <div class="options">
+              <label><input type="radio" name="qB_6" value="a"> a) you relate something to a piece of news</label>
+              <label><input type="radio" name="qB_6" value="b"> b) you remember a personal experience</label>
+              <label><input type="radio" name="qB_6" value="c"> c) you relate a story to another story</label>
+              <label><input type="radio" name="qB_6" value="d"> d) you read in foreign countries</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qB',6,'a')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qB',6,'a')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qB_6"></div>
+          </li>
+          <li>
+            The best title for the passage is …
+            <div class="options">
+              <label><input type="radio" name="qB_7" value="a"> a) The importance of reading</label>
+              <label><input type="radio" name="qB_7" value="b"> b) How to write a story</label>
+              <label><input type="radio" name="qB_7" value="c"> c) problems with reading</label>
+              <label><input type="radio" name="qB_7" value="d"> d) Reading only for school</label>
+            </div>
+            <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qB',7,'a')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qB',7,'a')">Show correct answer</button></div>
+            <div class="feedback" id="fb_qB_7"></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>C) Translation <span style="font-size:.9rem; font-weight:700; background:#eef2ff; padding:4px 10px; border-radius:999px;">4 marks</span></h2>
+      <div class="q-card" id="qC1">
+        <div class="q-title">I) Translate the following sentence into <strong>Arabic</strong>:</div>
+        <p class="mono">Young people must be armed with science and technology to achieve their ambitions.</p>
+        <div class="options" style="direction: rtl; text-align:right">
+          <label><input type="radio" name="qC1_1" value="1"> 1) يجب أن يتسلّح الشباب بالعلم والتكنولوجيا ليحقّقوا آمالهم.</label>
+          <label><input type="radio" name="qC1_1" value="2"> 2) يجب أن يتسلّح الشباب بالعلم والتكنولوجيا ليحقّقوا طموحهم.</label>
+          <label><input type="radio" name="qC1_1" value="3"> 3) يجب أن يتسلّح الشباب بالعلم والتكنولوجيا ليجُّوا آمالهم.</label>
+          <label><input type="radio" name="qC1_1" value="4"> 4) يجب أن يتسلّح الشباب بالعلم والتكنولوجيا ليحقّقوا أمالهم.</label>
+        </div>
+        <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qC1',1,'2')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qC1',1,'2')">Show correct answer</button></div>
+        <div class="feedback" id="fb_qC1_1"></div>
+      </div>
+
+      <div class="q-card" id="qC2">
+        <div class="q-title">II) Translate the following sentence into <strong>English</strong>:</div>
+        <p class="mono" style="direction: rtl; text-align:right">التعليم الجيّد يساعد في إعداد جيلٍ من المواطنين القادرين على تحقيق أهداف مجتمعهم.</p>
+        <div class="options">
+          <label><input type="radio" name="qC2_1" value="a"> a) Good education helps us to repair generations of citizens able to achieve their societies aims.</label>
+          <label><input type="radio" name="qC2_1" value="b"> b) Well education helps us prepare generations of citizens able to achieve their societies aims.</label>
+          <label><input type="radio" name="qC2_1" value="c"> c) Good education helps us to prepare generations of citizens who are able to achieve their societies aims.</label>
+          <label><input type="radio" name="qC2_1" value="d"> d) Good education helps us to prepare generations of citizens able of achieve their societies aims.</label>
+        </div>
+        <div class="controls"><button class="btn-primary" onclick="checkRadioSingle('qC2',1,'c')">Check</button> <button class="btn-mint" onclick="showCorrectRadio('qC2',1,'c')">Show correct answer</button></div>
+        <div class="feedback" id="fb_qC2_1"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>D) The Novel <span style="font-size:.9rem; font-weight:700; background:#eef2ff; padding:4px 10px; border-radius:999px;">1 mark</span></h2>
+      <div class="q-card">
+        <p>Answer the following questions (write in the boxes):</p>
+        <ol>
+          <li>Do you think Santiago is a hero? Why/Why not?</li>
+          <textarea id="novelQ1" rows="4" style="width:100%; margin:8px 0" placeholder="Write your answer here…"></textarea>
+          <li>Why do you think Manolin was still with Santiago in spite of his parents' refusal?</li>
+          <textarea id="novelQ2" rows="4" style="width:100%; margin:8px 0" placeholder="Write your answer here…"></textarea>
+        </ol>
+        <div class="controls"><button class="btn-mint" onclick="novelHint()">Show sample ideas</button></div>
+        <div class="model" id="novelModel" style="display:none"><strong>Sample ideas:</strong> Santiago is a hero because he shows courage, endurance and hope while fighting the marlin alone at sea. Manolin stays with Santiago out of love, loyalty and respect; he believes in the old man's skill even when his parents refuse.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>E) Writing <span style="font-size:.9rem; font-weight:700; background:#eef2ff; padding:4px 10px; border-radius:999px;">4 marks</span></h2>
+      <div class="q-card" id="rewrite">
+        <p>6) Rewrite the sentences using the words in brackets to give the same meaning.</p>
+        <ol>
+          <li>
+            It isn't allowed to park your car in front of the hospital entrance. <span style="background:#eef2ff; padding:2px 8px; border-radius:999px">(mustn't)</span>
+            <textarea id="rw1" rows="2" style="width:100%" placeholder="Type your sentence here…"></textarea>
+            <div class="controls"><button class="btn-primary" onclick="checkRewrite('rw1', ['you mustn\'t park your car in front of the hospital entrance','mustn\'t park your car in front of the hospital entrance'])">Check & Correct</button> <button class="btn-mint" onclick="showModel('rw1_model')">Show model answer</button></div>
+            <div id="rw1_fb" class="feedback"></div>
+            <div id="rw1_model" class="model" style="display:none">Model: <em>You mustn't park your car in front of the hospital entrance.</em></div>
+          </li>
+          <li>
+            She has no pencils in her case. <span style="background:#eef2ff; padding:2px 8px; border-radius:999px">(any)</span>
+            <textarea id="rw2" rows="2" style="width:100%" placeholder="Type your sentence here…"></textarea>
+            <div class="controls"><button class="btn-primary" onclick="checkRewrite('rw2', ['she doesn\'t have any pencils in her case','there aren\'t any pencils in her case'])">Check & Correct</button> <button class="btn-mint" onclick="showModel('rw2_model')">Show model answer</button></div>
+            <div id="rw2_fb" class="feedback"></div>
+            <div id="rw2_model" class="model" style="display:none">Model: <em>She doesn't have any pencils in her case.</em> (Also acceptable: <em>There aren't any pencils in her case.</em>)</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="q-card" id="essay">
+        <p>7) Write an essay of about <strong>150 words</strong> on the following topic: <em>The importance of learning foreign languages</em>.</p>
+        <textarea id="essayText" rows="10" style="width:100%" placeholder="Start writing…"></textarea>
+        <div class="controls"><button class="btn-primary" onclick="checkEssay()">Check word count</button> <button class="btn-mint" onclick="showEssayIdeas()">Show ideas & outline</button></div>
+        <div id="essay_fb" class="feedback"></div>
+        <div id="essay_ideas" class="model" style="display:none"><strong>Outline:</strong> Intro: Why languages matter today (globalisation, jobs). Body: benefits (communication, culture, study/work opportunities, travel, brain health). Tips: regular practice, reading, speaking, using media. Conclusion: commit to learning for a stronger future.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Final</h2>
+      <div class="controls"><button class="btn-danger" onclick="resetAll()">🔄 Retry the whole exam</button></div>
+      <div id="finalScore" class="score"></div>
+    </div>
+  </div>
+
+<script>
+// ===== Audio: chime & buzz =====
+function playChime(){ const ctx=new (window.AudioContext||window.webkitAudioContext)(); const o=ctx.createOscillator(); const g=ctx.createGain(); o.type='sine'; o.frequency.setValueAtTime(880, ctx.currentTime); g.gain.setValueAtTime(0.001, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.5, ctx.currentTime+0.02); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.35); o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime+0.4); }
+function playBuzz(){ const ctx=new (window.AudioContext||window.webkitAudioContext)(); const o=ctx.createOscillator(); const g=ctx.createGain(); o.type='square'; o.frequency.setValueAtTime(120, ctx.currentTime); g.gain.setValueAtTime(0.2, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.35); o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime+0.4); }
+
+// ===== Speech: UK voice for correct only =====
+function pickUKVoice(){ const voices = speechSynthesis.getVoices(); return voices.find(v=>/en-GB/i.test(v.lang)); }
+function speakCorrect(text){ const v = pickUKVoice(); if(!v){ return; } const u = new SpeechSynthesisUtterance(text); u.voice=v; u.rate=0.95; u.pitch=1.05; u.volume=1; speechSynthesis.cancel(); speechSynthesis.speak(u); }
+window.speechSynthesis.onvoiceschanged = function(){};
+
+// ===== Progress map (updated to include qA1 & qA2) =====
+const progressMap = {}; const expectedKeys = ['qA1','qA2', ...Array.from({length:12},(_,i)=>`qA3_${i+1}`), ...Array.from({length:7},(_,i)=>`qB_${i+1}`), 'qC1_1','qC2_1'];
+function updateProgress(){ let totalCorrect=0; const total=expectedKeys.length; expectedKeys.forEach(k=>{ if(progressMap[k]) totalCorrect++; }); document.getElementById('progressBox').textContent = 'Progress: '+totalCorrect+' / '+total; }
+
+// ===== Helpers =====
+function labelForInput(input){ return input ? input.parentElement : null; }
+function clearLabels(container){ container.querySelectorAll('label').forEach(l=>{ l.style.background=''; l.style.color=''; }); }
+function glowCard(el){ const card=el.closest('.q-card'); if(card){ card.classList.add('pulse','glow-correct'); setTimeout(()=>{ card.classList.remove('pulse','glow-correct'); },800); }}
+function shakeCard(el){ const card=el.closest('.q-card'); if(card){ card.classList.add('shake-wrong'); setTimeout(()=> card.classList.remove('shake-wrong'), 450); }}
+function celebrate(el){ const card=el.closest('.q-card'); const box=document.createElement('div'); box.className='confetti-box'; card.appendChild(box); const colors=['#ff7eb6','#ffd166','#3cf0c0','#60a5fa','#a78bfa','#f472b6','#22c55e']; const W=card.clientWidth, H=card.clientHeight; for(let i=0;i<24;i++){ const p=document.createElement('span'); p.className='piece'; const c=colors[Math.floor(Math.random()*colors.length)]; p.style.background=c; const tx=(Math.random()*W-W/2)+'px'; const ty=(Math.random()*H/2)+'px'; const rot=(Math.random()*360-180)+'deg'; p.style.setProperty('--tx', tx); p.style.setProperty('--ty', ty); p.style.setProperty('--rot', rot); p.style.left=(card.clientWidth/2)+'px'; p.style.top='20px'; box.appendChild(p); } setTimeout(()=> box.remove(), 1200); }
+
+// ===== Multi-select (A1 & A2) =====
+function getCheckedValues(containerId){ const box=document.getElementById(containerId); return Array.from(box.querySelectorAll('input[type="checkbox"]:checked')).map(x=>x.value); }
+function checkMulti(id, correct){ const box=document.getElementById(id); const chosen=getCheckedValues(id); const fb=document.getElementById('fb_'+id); clearLabels(box); if(chosen.length!==2){ fb.className='feedback wrong'; fb.textContent=''; progressMap[id]=false; playBuzz(); shakeCard(box); updateProgress(); return; } const ok = chosen.slice().sort().join(',')===correct.slice().sort().join(','); if(ok){ fb.className='feedback correct'; fb.textContent=''; correct.forEach(val=>{ const el=box.querySelector('input[value="'+val+'"]').parentElement; el.style.background='#dcfce7'; el.style.color='#065f46'; }); progressMap[id]=true; playChime(); speakCorrect('Great job! Correct answer.'); glowCard(box); celebrate(box); } else { fb.className='feedback wrong'; fb.textContent=''; chosen.forEach(val=>{ if(!correct.includes(val)){ const el=box.querySelector('input[value="'+val+'"]').parentElement; el.style.background='#fee2e2'; el.style.color='#7f1d1d'; }}); progressMap[id]=false; playBuzz(); shakeCard(box); } updateProgress(); }
+function showCorrectMulti(id, correct){ const box=document.getElementById(id); correct.forEach(val=>{ const el=box.querySelector('input[value="'+val+'"]').parentElement; el.style.background='#dcfce7'; el.style.color='#065f46'; }); }
+
+// ===== Single radio (per item) =====
+function checkRadioSingle(sectionId, idx, correctVal){ const section=document.getElementById(sectionId); const name=sectionId+'_'+idx; const sel=document.querySelector('input[name="'+name+'"]:checked'); const fb=document.getElementById('fb_'+sectionId+'_'+idx);
+  const item = section.querySelector('input[name="'+name+'"]').closest('li'); if(item){ item.querySelectorAll('label').forEach(l=>{ l.style.background=''; l.style.color=''; }); }
+  if(!sel){ fb.className='feedback wrong'; fb.textContent=''; progressMap[sectionId+'_'+idx]=false; playBuzz(); shakeCard(section); updateProgress(); return; }
+  const lab = labelForInput(sel);
+  if(sel.value===correctVal){ fb.className='feedback correct'; fb.textContent=''; lab.style.background='#dcfce7'; lab.style.color='#065f46'; progressMap[sectionId+'_'+idx]=true; playChime(); speakCorrect('Excellent! That is correct.'); glowCard(lab); celebrate(lab); }
+  else { fb.className='feedback wrong'; fb.textContent=''; lab.style.background='#fee2e2'; lab.style.color='#7f1d1d'; progressMap[sectionId+'_'+idx]=false; playBuzz(); shakeCard(lab); }
+  updateProgress(); }
+function showCorrectRadio(sectionId, idx, correctVal){ const name=sectionId+'_'+idx; const opts=document.querySelectorAll('input[name="'+name+'"]'); opts.forEach(o=>{ const label=o.parentElement; if(o.value===correctVal){ label.style.background='#dcfce7'; label.style.color='#065f46'; } }); }
+
+// ===== Rewrite & Essay =====
+function norm(s){ return s.toLowerCase().replace(/[^a-z0-9\s']/g,'').replace(/\s+/g,' ').trim(); }
+function editDistance(a,b){ a=norm(a); b=norm(b); const dp=Array(a.length+1).fill(null).map(()=>Array(b.length+1).fill(0)); for(let i=0;i<=a.length;i++) dp[i][0]=i; for(let j=0;j<=b.length;j++) dp[0][j]=j; for(let i=1;i<=a.length;i++) for(let j=1;j<=b.length;j++){ const c=a[i-1]===b[j-1]?0:1; dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+c);} return dp[a.length][b.length]; }
+function similarity(a,b){ const maxLen=Math.max(norm(a).length,norm(b).length); const dist=editDistance(a,b); return 1 - dist/Math.max(maxLen,1); }
+function checkRewrite(id, models){ const input=document.getElementById(id).value; const fb=document.getElementById(id+'_fb'); const best=models.reduce((acc,m)=> Math.max(acc, similarity(input, m)), 0); if(best>=0.82){ fb.className='feedback correct'; fb.textContent=''; playChime(); speakCorrect('Nice work! Same meaning preserved.'); glowCard(fb); celebrate(fb); } else { fb.className='feedback wrong'; fb.textContent=''; playBuzz(); shakeCard(fb); } }
+function showModel(modelId){ document.getElementById(modelId).style.display='block'; }
+function checkEssay(){ const txt=document.getElementById('essayText').value.trim(); const words=txt.split(/\s+/).filter(Boolean).length; const fb=document.getElementById('essay_fb'); fb.className = words>=150? 'feedback correct':'feedback wrong'; fb.textContent=''; if(words>=150){ playChime(); speakCorrect('Great! You reached the target word count.'); glowCard(fb); } else { playBuzz(); shakeCard(fb); } }
+function showEssayIdeas(){ document.getElementById('essay_ideas').style.display='block'; }
+
+// ===== Reset =====
+function resetAll(){ document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(i=>{ i.checked=false; i.parentElement.style.background=''; i.parentElement.style.color=''; }); document.querySelectorAll('.feedback').forEach(f=>{ f.className='feedback'; f.textContent=''; }); document.querySelectorAll('textarea').forEach(t=> t.value=''); ['novelModel','rw1_model','rw2_model','essay_ideas'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display='none'; }); Object.keys(progressMap).forEach(k=> delete progressMap[k]); updateProgress(); speechSynthesis.cancel(); }
+
+// Initialize progress
+updateProgress();
+function novelHint(){ document.getElementById('novelModel').style.display='block'; }
+</script>
+</body>
+</html>
